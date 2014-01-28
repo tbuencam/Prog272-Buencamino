@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Swiss Army Calculator</title>
+        <link href="style/style.css" type="text/css" rel="stylesheet" />
+        <script src="src/SwissArmyCalculator.js"></script>        
+    </head>
+    <body>
+        <h1>Swiss Army Calculator</h1>
+        
+<div id="main">
+			<section id="userinput">
+				<br />
+				<hr />
+				<p>Here is an assortment of tools that you can use every day.</p>
+				<br />
+				<br />
+
+				<form>
+					<fieldset id="tempConverter">
+						<legend>
+							Fahrenheit to Celsius Converter
+						</legend>
+						<div>
+							<!--Enter the temperature in Fahrenheit:-->
+							<br />
+							<label for="temperature">&#176;F:</label>
+							<input id="temperature" size="10">
+							=> <label id="tempResult" >&nbsp;</label>
+						</div>
+						<br />
+
+						<div>
+							<input type="button" id="toCelsiusButton" value="Celsiusify it!">
+						</div>
+					</fieldset>
+					
+					<fieldset id="milesConverter">
+						<legend>
+							Miles to Kilometers Converter
+						</legend>
+						<div>
+							<!-- Enter the number of miles:-->
+							<br />
+							<label for="miles">Miles:</label>
+							<input id="miles" size="10">
+							=> <label id="kilometerResult">&nbsp;</label>
+						</div>
+						<br />
+
+						<div>
+							<input type="button" id="toKMButton" value="Kilometerize it!">
+						</div>
+					</fieldset>
+
+					<fieldset id="squareRooter">
+						<legend>
+							Square Rootinator
+						</legend>
+						<div>
+							<!-- Enter the number:-->
+							<br />
+							<label for="number">Number:</label>
+							<input id="number" size="10">
+							=> <label id="sqRootResult">&nbsp;</label>
+						</div>
+						<br />
+
+						<div>
+							<input type="button" id="sqRooterButton" value="Square Root it!">
+						</div>
+					</fieldset>
+
+				</form>
+
+			</section>
+		</div>
+		<!-- End #main -->
+        
+   		<script src="index.js"></script>
+     
+    </body>
+</html>
