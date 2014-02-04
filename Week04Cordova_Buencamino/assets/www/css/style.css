@@ -1,0 +1,50 @@
+
+
+#section {
+	padding-top:5px;
+	border: 2px;
+	margin-top: 20px;
+	width: 500px;
+	height: 300px;
+}
+
+#buttons {
+	background-color: #0066ff; /* Soft Blue */
+	border: 2px solid gray;
+	margin: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	height: 65px;
+}
+
+.heading {
+	text-transform:none;
+	font-size:14px;
+}
+
+#div01 {
+	background-color: #FFFFCC; /* Pale Yellow */
+	border: 1px solid gray;
+	margin: 5px;
+	padding: 10px;
+	height: 100px;
+	text-transform:none;
+	text-align: left;
+}
+
+button {
+	background-color: white; /* Pale Yellow */
+}
+
+.pair {
+	width:30%;
+	float:left;
+	border: 2px solid #E4E4E4 ;
+	margin-left: 7px;
+	padding: 2px;
+}
+
+#deviceready {
+    text-align: center;
+}
+}
