@@ -1,0 +1,33 @@
+body {
+	background-color: #FFFCFF;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+fieldset {
+	border: 2px solid gray;
+	margin: 10px 0px 30px 2.5%;
+	margin: auto;
+	margin-top:20px; /* Places more spacing between the fieldsets. */
+	padding-left:20px;
+	width: 45%;
+	text-align:left;
+}
+
+legend {
+	color: rgb(233,69,0);
+	font-weight:bold;
+	padding: 3px 0px;
+	text-indent: 5px;
+}
+
+h1 {
+	color: rgb(233,69,0);
+}
+
+hr {
+  color: gray;
+}
+
+p {
+   text-transform:none; /* Do not convert to upper case. */
+}
