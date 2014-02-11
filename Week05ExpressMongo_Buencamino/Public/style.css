@@ -1,0 +1,16 @@
+body {
+	background-color: #00AAAA;
+	font-family:Arial, sans-serif;
+	font-size:12px;
+
+}
+
+#main {
+    width:400px;
+    margin:auto;
+    padding-top:20px;
+}
+
+#result {
+    padding-top:20px;
+}

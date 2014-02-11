@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Node Express Mongo 01</title>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <script src="jquery-2.1.0.js"></script>
+  <script src="index.js"></script>
+</head>
+<body>
+	<div id="main">
+     <h1>Buencamino's Sassy DB</h1>
+     <p>Enter the record number of the contact you want to view, and click "Show."</p>
+     <label for="recordNum" >Record:</label>
+     <input type="number" id="recordNum" />
+     <input type="button" id="showButton" value="Show" />
+
+     <div id="result">
+       <h2>Contact:</h2>
+       <p><strong>Name:&nbsp;</strong><span id="name">Name</span></p>
+       <p><strong>Address:&nbsp;</strong><span id="address">Address</span>,
+       <span id="cityStateZip">City, State Zip</span></p>
+     </div><!-- /#result -->
+   </div><!-- /#main -->
+</body>
+</html>
