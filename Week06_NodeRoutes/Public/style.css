@@ -1,0 +1,24 @@
+body {
+	background-color: #00AAAA;
+	font-family:Arial, sans-serif;
+	font-size:12px;
+
+}
+
+#main {
+    width:400px;
+    margin:auto;
+    padding-top:20px;
+}
+
+h1 {
+    text-align:center;
+    text-transform:uppercase;
+    color:white;
+}
+
+.result {
+    color:white;
+    font-weight:bold;
+    font-size:14px;
+}
