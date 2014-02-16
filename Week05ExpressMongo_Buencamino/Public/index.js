@@ -2,10 +2,9 @@
  * @author Terence Buencamino
  */
  /* jshint strict:true */
+ 
 
-
-$(document).ready(function() {
-
+function Run() {
 	$.getJSON('/read', function(data) {'use strict';
 		// console.log(data);
 			
@@ -31,6 +30,10 @@ $(document).ready(function() {
 		$("#name").html(d[recordNum].firstName + " " + d[recordNum].lastName);
 		$("#address").html(d[recordNum].address);
 		$("#cityStateZip").html(d[recordNum].city + ", " + d[recordNum].state + " " + d[recordNum].zip);	 
-	}
-	
+	}	
+}
+
+
+$(document).ready(function() {
+		new Run();
 });
