@@ -1,0 +1,37 @@
+body {
+	background-color: #00AAAA;
+	font-family:Arial, sans-serif;
+	font-size:12px;
+
+}
+
+#main {
+    width:400px;
+    margin:auto;
+    padding-top:20px;
+}
+
+h1 {
+    text-align:center;
+    text-transform:uppercase;
+    color:white;
+}
+
+h2{
+	color:dimgray;
+	text-align:center;
+}
+
+h3{
+    color:white;
+}
+
+#showData{
+	width:400px;
+	height: 120px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #FFFCFF;
+	border: 3px solid grey;
+    margin:auto;
+}

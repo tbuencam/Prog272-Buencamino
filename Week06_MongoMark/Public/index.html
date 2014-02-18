@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="generator" content="pandoc">
+		<title>Buencamino's Mongo Markup Adventures</title>
+		<link href="index.css" rel="stylesheet" type="text/css">		
+		<link href="style.css" rel="stylesheet" type="text/css">
+		<script src="jquery-2.1.0 .js"></script>
+		<script src="index.js"></script>
+	</head>
+	
+	<body>
+	  <div id="main">
+		<h1>Buencamino's Mongo Markup Adventures</h1>
+		<p>
+			Follow the instructions below (in order) and magical things will happen behind the scenes ...
+		</p>
+		
+		<hr />		
+	
+		<!-- 1. Read the markdown file into the Mongo database. -->	
+		<h3>1. Place Markdown into Mongo</h3>	
+		<p id="readInMarkdownResult">Click <strong>Upload</strong> to read the markdown file into the database.</p>
+		<button id="readInMarkdown">Upload</button>
+				
+		<hr />
+		
+		<!-- 2. Convert the markdown from the Mongo database to HTML. -->	
+		<h3>2. Convert It to HTML</h3>
+		<p id="writeMarkdownToHTMLResult">Click <strong>Convert</strong> to convert the markdown from the database to HTML.</p>
+		<button id="writeOutMarkdown">Convert</button>
+				
+		<hr />
+
+		<!-- 3. Allow user to select the chunk of HTML to display. -->		
+		<h3>3. Learn About Presidents</h3>
+		<p>Select the U.S. president you want to know about:</p>
+		<section id="mainGroups">	
+			<p><input type="radio" name="mainGroup" id="washington"><label for="washington">Washington</label></p>
+			<p><input type="radio" name="mainGroup" id="adams"><label for="adams">Adams</label></p>		
+			<p><input type="radio" name="mainGroup" id="jefferson"><label for="jefferson">Jefferson</label></p>
+	   </section>
+		
+	   <!-- This is where the result will be displayed. -->
+	   <div id="showData"> </div>
+	   	
+     </div> <!-- /#main -->
+	</body>
+</html>
