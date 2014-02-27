@@ -1,0 +1,112 @@
+@font-face
+{
+font-family: Princess_Sofia;
+src: url(./fonts/Princess_Sofia/PrincessSofia-Regular.ttf);
+}
+
+body {
+	background-color: #00AAAA;
+	background-color: dimgray;	
+}
+
+#leftPanel{
+    padding-top:20px;
+    width: 200px;
+    height: 750px;
+    float:left;
+    background-color: #FFFCFF;
+    text-align:center;
+}
+
+.buttons {
+    width: 400px;
+    width: 325px;
+    height: 235px;
+    height: 60px; /* Start here. */
+	text-align: center;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	/*border: 2px solid black;*/
+	/* Also Nice: CornflowerBlue */
+	background-color: Beige;
+	margin:auto;
+	padding-top: 20px;
+}
+
+#createRecords,#readAll,#addRecord,#deleteRecord {
+    background-color: white; /* SkyBlue */
+    font-family:Princess_Sofia,Arial;
+    font-size:18px;
+    font-weight:bold;
+    display::block;
+    clear:both;
+}
+
+.select {
+  font-size:20px;
+}
+
+#centerPanel{
+    width: 700px;
+    height: 790px;
+    float:left; 
+    background-color: royalblue;
+    text-align:center;
+    font-family:Princess_Sofia,Arial;
+}
+
+#rightPanel{
+	padding-top:100px;
+    width: 500px;
+    height: 690px;
+    float:left;
+    background-image: URL(./images/background.jpg);
+    text-align:center;
+}
+
+#mainImg {
+    width: 400px;
+    height: 400px;
+    border: solid gray 3px;
+}
+
+.dataDisplay {
+    margin:auto;	
+	background-image: URL(./images/shakespeare.png);
+	background-color: white;
+	width: 275px;
+	height: 450px;
+	border: 6px solid dimgray;	/* Maybe RoyalBlue? */
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 30px;
+	text-align:center;
+}
+
+.dataDisplay p {
+	border: solid black 1px;
+	margin: 2px;
+	background-color: #BBAAFF;
+	
+}
+
+.new {
+    background-color:yellow;
+}
+
+h1 {
+  font-family:Princess_Sofia,Arial;
+  font-size:34px;
+  color:white;
+}
+
+h3, #content {
+  font-family:Princess_Sofia,Arial;
+  font-size:20px;
+}
+
+/* Control the font in the list box. */
+#keywordList,#sonnetList {
+  font-family:Princess_Sofia,Arial;
+  font-size:16px;
+}

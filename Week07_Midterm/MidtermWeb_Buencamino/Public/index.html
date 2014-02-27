@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Shakespeare Sonnet Selector</title>
+  <link href="index.css" rel="stylesheet" type="text/css">
+  <script src="jquery-2.1.0.js"></script>
+  <script src="index.js"></script>
+</head>
+<body>
+	<div id="centerPanel">
+	<h1>Shakespeare Sonnet Selector</h1>
+	<img id="mainImg" src="./images/bard.png" alt="The bard">
+
+    	  <div class="buttons">
+			  <div><button id="createRecords">Load'st Thou All Sonnets</button></div>		
+			  <div><button id="readAll">Bring'st Forth Mine Lovely Sonnets</button></div>
+			  
+			  <form id="selectSonnet">
+				<p class="select" >Seek'st thou on ... &nbsp;
+			    <select id="keywordList" >
+			      <option>autumn</option>
+			      <option>joy</option>
+			      <option>poem</option>
+			      <option>sonnet</option>
+			      <option>spring</option>
+			      <option>summer</option>
+			      <option>time</option>
+			      <option>winter</option>
+			    </select>
+			    </p>
+				  
+			    <p class="select" >Select'st thou a sonnet to behold ... &nbsp;
+			    <select id="sonnetList" >
+			    </select>
+			    </p>
+		    </form>
+			  
+			  <div><button id="addRecord" >Add'st Thou Thine Own Fair Sonnet</button></div>
+			  <div><button id="deleteRecord" >Remov'st Thou This Wretched Sonnet!</button></div>
+	  </div>
+
+    </div> <!-- /#content -->
+    
+    <div id="rightPanel">
+	 <div class="dataDisplay">
+		<h3><span id="title"> </span> </h3>
+		<pre><span id="content"> </span></pre>
+	</div>	
+   </div>  <!-- /#rightPanel -->
+    
+</body>
+</html>
