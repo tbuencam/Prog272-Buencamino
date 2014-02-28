@@ -20,11 +20,7 @@ var QueryMongo = (function() {'use strict';
 	
 
 	// Constructor.
-	function QueryMongo() {
-		
-		// TEST: Connecting to MongoLab instead.
-		// url = 'mongodb://tbuencam:Ital1an0@ds053708.mongolab.com:53708/buencamino01';  // MongoError: auth fails
-		// Error: URL must be in the format mongodb://user:pass@host:port/dbname		
+	function QueryMongo() {			
 		
 		// Read configuration from config.json:
 		var configContent = fs.readFileSync(configFile, 'utf8');  // Read the configuration file.
@@ -50,15 +46,17 @@ var QueryMongo = (function() {'use strict';
 
 	var getDatabase = function(func) {
 		console.log('Called getData');
-		if (database !== null) {
-			console.log('database exists');
-			database.open(function(err, database) {
-				if (err) {
-					throw err;
-				}
-				func(database);
-			});
-		} else {
+		//if (database !== null) {
+			//console.log('database exists');
+			//database.open(function(err, database) {
+				//if (err) {
+					//console.log("Problem opening database.");  // There is a problem here when using MongoLab.
+					//throw err;
+				//}
+				//console.log("Database opened.");
+				//func(database);
+			//});
+		//} else {
 			console.log('Querying for database');
 			MongoClient.connect(url, function(err, databaseResult) {
 				if (err) {
@@ -67,7 +65,7 @@ var QueryMongo = (function() {'use strict';
 				database = databaseResult;
 				func(database);
 			});
-		}
+		//}
 	}; // End getDatabase
 
 	
@@ -78,9 +76,8 @@ var QueryMongo = (function() {'use strict';
 			var collection = database.collection(targetCollection);
 
 			// Send the collection to the client.
-			//collection.find().sort({title:1}).toArray(function(err, theArray) { // Try sorting by title in ascending order.
 			collection.find().toArray(function(err, theArray) {
-				theArray.sort(function compare(a, b) {
+				theArray.sort(function compare(a, b) {  // Sort by sonnet number in ascending order.
 					var numberA = a.title.slice(7, a.title.length);
 					numberA = padNumber(numberA, 3, 0);
 					// console.log(numberA);
@@ -92,13 +89,15 @@ var QueryMongo = (function() {'use strict';
 						return 1;
 					// a must be equal to b
 					return 0;
-				});
+				});  // End sort
 				// console.dir(theArray);
+				console.log("Closing connection.");
 				database.close();
 				//console.log("Sending the array");
+				console.log("Sending back the data.");
 				response.send(theArray);
-			});
-		});
+			}); // End find
+		});  // End getDatabase
 	};  // End getCollection
 	
 	
