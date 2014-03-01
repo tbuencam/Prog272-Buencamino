@@ -30,7 +30,8 @@ var QueryMongo = (function() {'use strict';
 		console.log("Configuration: " + config);
 		
 		// Set the DB URL, collection name, data input file, and extra record file from the settings in config JSON.
-		url = configuration[0].url;
+		// url = configuration[0].url;
+		url = 'mongodb://127.0.0.1:27017/test';  // Need to use this for testing Cordova app (because of networking issues).
 		console.log("url: " + url);
 			
 		targetCollection = configuration[0].targetCollection;  // Set the target collection to 'Poems.'	
