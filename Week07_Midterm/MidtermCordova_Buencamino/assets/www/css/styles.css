@@ -1,0 +1,96 @@
+@font-face
+{
+font-family: Princess_Sofia;
+src: url(../fonts/Princess_Sofia/PrincessSofia-Regular.ttf);
+}
+
+body {
+	background-color: #00AAAA;
+	background-color: dimgray;	
+}
+
+
+.buttons {
+    width: 325px; 
+    height: 60px; /* Start here. */
+	text-align: center;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	background-color: Beige;
+	margin:auto;
+	padding-top: 20px;
+}
+
+#createRecords,#readAll,#addRecord,#deleteRecord {
+    background-color: white;
+    font-family:Princess_Sofia,Arial;
+    font-size:16px;
+    font-weight:bold;
+    display::block;
+    clear:both;
+}
+
+.select {
+  font-size:16px;
+}
+
+#centerPanel{
+    width: 400px;
+    height: 530px;
+    float:left;
+    background-color: royalblue;
+    text-align:center;
+    font-family:Princess_Sofia,Arial;
+}
+
+#rightPanel{
+	padding-top:45px;
+    width: 400px;
+    height:485px;
+    display:inline-block;
+    background-image: URL(../img/background.jpg);
+    text-align:center;
+}
+
+#mainImg {
+    width: 200px;
+    height: 200px;
+    border: solid dimgray 3px;
+}
+
+.dataDisplay {
+    margin:auto;	
+	background-image: URL(../img/shakespeare.png);
+	background-color: white;
+	width: 200px;
+	height: 400px;
+	border: 6px solid dimgray;	/* Maybe RoyalBlue? */
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 30px;
+	text-align:center;
+}
+
+.dataDisplay p {
+	border: solid black 1px;
+	margin: 2px;
+	background-color: #BBAAFF;
+	
+}
+
+h1 {
+  font-family:Princess_Sofia,Arial;
+  font-size:30px;
+  color:white;
+}
+
+h3, #content {
+  font-family:Princess_Sofia,Arial;
+  font-size:16px;
+}
+
+/* Control the font in the list box. */
+#keywordList,#sonnetList {
+  font-family:Princess_Sofia,Arial;
+  font-size:16px;
+}
