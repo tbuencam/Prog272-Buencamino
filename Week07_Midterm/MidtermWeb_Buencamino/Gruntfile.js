@@ -18,7 +18,8 @@ module.exports = function(grunt) { 'use strict';
 					'**/bootstrap.min.js',
 					'**/crafty.js',
 					'**/qunit-1.13.0.css',
-					'**/qunit-1.13.0.js'
+					'**/qunit-1.13.0.js',
+					'**/Library/Jasmine/**'
 				],
 				reporter: 'checkstyle',
 				reporterOutput: 'result.xml',

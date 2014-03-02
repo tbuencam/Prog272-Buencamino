@@ -6,24 +6,28 @@
 var MongoData = (function() { 'use strict';
 
 	var mongoData = null;
-	var currPoemIndex = 0;  // Tracks the index of the poem currently displayed.
+	var currPoemIndex = 0;  // Tracks the index of the poem currently displayed
 	var currPoemId = null;  // Track the ID of the poem currently selected (for deletions).
+	var that = null;
 
+	
+	
 	function MongoData() {	
+		that = this;
 		$("#createRecords").click(createRecords);	
 		//$("#createRecords").style.cursor = "pointer";  This doesn't seem to work here. It just shows all the other buttons. (The 'hide' does not execute.)
-		$("#readAll").click(queryAll);		
-		$("#keywordList").click(findMatches);   // Dropdown selection so search on keyword.
+		$("#readAll").click(readAllUi);	// For client testing.
+		$("#keywordList").click(findMatches);   // Dropdown selection for search on keyword.
 		$("#sonnetList").click(getSelection);	// Dropdown selection for sonnet to view.
 		$("#addRecord").click(addRecord);	
-		$("#deleteRecord").click(deleteRecord);	
+		$("#deleteRecord").click(this.deleteRecord);	// For client testing, deleteRecord was made a public method instead of the private one.
 		// Hide the applicable sections initially so user cannot see those options before collection is populated.
 		$("#readAll").hide();
 		$("#selectSonnet").hide();
 		$("#addRecord").hide();
 		$("#deleteRecord").hide();
 	}
-
+	
 	var displayRecord = function(index) {
 		$(".dataDisplay").css("background-image","none");  // Clear out the message area for add.
 		$(".dataDisplay").css("border", "solid gray 2px"); // Changes the border properties.
@@ -78,13 +82,13 @@ var MongoData = (function() { 'use strict';
 		displayRecord(currPoemIndex);
 	}; // End getSelection
 	
-
-    //  Read all the data from the collection and populate the list that allows the user to select a sonnet.  
-	var queryAll = function() {
-		$.getJSON('/readAll', function(data) {
-			mongoData = data;
+	
+	var readAllUi = function() {
+		that.readAll("",  function(data) {
 			console.log(data);
+			mongoData = data;
 			// First, zero out the select list and start fresh because there might have been a previous call to findMatches to fill the list only by keyword match.
+			
 			$("#sonnetList").empty();
 			
 			// Loop to add each of the titles to the selection list named 'sonnetList' so the user can select.
@@ -96,9 +100,16 @@ var MongoData = (function() { 'use strict';
 			$(".buttons").css("width","400px");
 			$(".buttons").css("height","250px");
 			$("#selectSonnet").show();
-			$("#deleteRecord").show();	// Button.			
-		});
+			$("#deleteRecord").show();
+	});
+};
+	
+   // Read all the data from the collection and populate the list that allows the user to select a sonnet. 
+   // This method was changed to public for client testing purposes only.
+	MongoData.prototype.readAll = function(route, callback) {
+		$.getJSON('/readAll', callback );
 	}; // End queryAll
+
 	
 	// Creates the entire Poems collection from Shakespeare.json.
 	var createRecords = function() {			
@@ -119,8 +130,8 @@ var MongoData = (function() { 'use strict';
 		}); // End .getJSON		
 	};  // End addRecord
 	
-	
-	var deleteRecord = function() {	
+	// This method was changed to public for client testing purposes only.
+	MongoData.prototype.deleteRecord = function() {	
 		console.log("/deleteRecord in index.js called.");
 		var request = {};
 		request.idRequested = currPoemId;  // Set currPoemId as the poem to delete.
@@ -129,9 +140,8 @@ var MongoData = (function() { 'use strict';
 			console.log('In getJSON /deleteRecord callback in index.js.');
 			console.log(data[0]);	// Show what's in data.		
 							
-			// Refresh the list of available Sonnets by calling queryAll:
-			// $("#readAll").click();  // Force clicking of the readAll button. This does not work.
-			// queryAll();				
+			// Refresh the list of available Sonnets:
+			// queryAll();		// This does not work yet. Implement in version 2?	
 		}); // End .getJSON
 	
 	};  // End deleteRecord	

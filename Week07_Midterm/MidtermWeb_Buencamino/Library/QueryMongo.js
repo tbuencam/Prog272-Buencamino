@@ -30,21 +30,23 @@ var QueryMongo = (function() {'use strict';
 		console.log("Configuration: " + config);
 		
 		// Set the DB URL, collection name, data input file, and extra record file from the settings in config JSON.
-		// url = configuration[0].url;
-		url = 'mongodb://127.0.0.1:27017/test';  // Need to use this for testing Cordova app (because of networking issues).
+		url = configuration[0].url;
+		// url = 'mongodb://127.0.0.1:27017/test';  // To use local Mongo instead of MongoLab, uncomment this and comment out previous statement.
 		console.log("url: " + url);
 			
-		targetCollection = configuration[0].targetCollection;  // Set the target collection to 'Poems.'	
+		targetCollection = configuration[0].targetCollection;  // Sets the target collection to 'Poems.'	
 		console.log("targetCollection: " + targetCollection);
 		
-		inputFile = configuration[0].inputFile;  // Set the input file collection to 'Shakespeare.json'.	
+		inputFile = configuration[0].inputFile;  // Sets the input file collection to 'Shakespeare.json'.	
 		console.log("inputFile: " + inputFile);
 		
-		addRecordFile = configuration[0].addRecordFile;  // Set the file collection to 'Data.json.'	
+		addRecordFile = configuration[0].addRecordFile;  // Sets the file collection to 'Data.json.'	
 		console.log("addRecordFile: " + addRecordFile);
 					
 	}  // End constructor
 
+
+	// NOTE: The commented out code here is left in intentionally. This was from your original code but does not work using MongoLab.
 	var getDatabase = function(func) {
 		console.log('Called getData');
 		//if (database !== null) {

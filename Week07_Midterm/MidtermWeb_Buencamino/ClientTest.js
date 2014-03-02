@@ -38,7 +38,8 @@ app.get('/deleteRecord', function(request, response) {'use strict';
 
 // Default.
 app.get('/', function(request, result) {'use strict';
-	var html = fs.readFileSync(__dirname + '/Public/index.html');
+	//var html = fs.readFileSync(__dirname + '/Public/index.html');
+	var html = fs.readFileSync(__dirname + '/Tests/SonnetClientTests.html');
 	result.writeHeader(200, { "Content-Type" : "text/html" });
 	result.write(html);
 	result.end();
