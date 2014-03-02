@@ -13,7 +13,7 @@ var MongoData = (function() { 'use strict';
 		$("#createRecords").click(createRecords);	
 		//$("#createRecords").style.cursor = "pointer";  This doesn't seem to work here. It just shows all the other buttons. (The 'hide' does not execute.)
 		$("#readAll").click(queryAll);		
-		$("#keywordList").click(findMatches);   // Dropdown selection so search on keyword.
+		$("#keywordList").click(findMatches);   // Dropdown selection for search on keyword.
 		$("#sonnetList").click(getSelection);	// Dropdown selection for sonnet to view.
 		$("#addRecord").click(addRecord);	
 		$("#deleteRecord").click(deleteRecord);	
@@ -81,7 +81,7 @@ var MongoData = (function() { 'use strict';
 
     //  Read all the data from the collection and populate the list that allows the user to select a sonnet.  
 	var queryAll = function() {
-		$.getJSON('http://192.168.56.101:30025/readAll', function(data) {   // Testing. LUbuntu VM using NAT
+		$.getJSON('http://10.0.0.7:30025/readAll', function(data) {   // Testing. LUbuntu VM using Bridged networking.
 			mongoData = data;
 			console.log(data);
 			// First, zero out the select list and start fresh because there might have been a previous call to findMatches to fill the list only by keyword match.
@@ -102,7 +102,7 @@ var MongoData = (function() { 'use strict';
 	
 	// Creates the entire Poems collection from Shakespeare.json.
 	var createRecords = function() {			
-			$.getJSON('http://192.168.56.101:30025/createRecords', function() {	
+			$.getJSON('http://10.0.0.7:30025/createRecords', function() {	
 			console.log('In getJSON /createRecords callback in index.js.');
 			// Remove (hide) the create button after it is used once.
 			$("#createRecords").hide();
@@ -114,7 +114,7 @@ var MongoData = (function() { 'use strict';
 	};  // End createRecords	
 	
 	var addRecord = function() {			
-			$.getJSON('http://192.168.56.101:30025/addRecord', function() {	
+			$.getJSON('http://10.0.0.7:30025/addRecord', function() {	
 			console.log('In getJSON /addRecord callback in index.js.');
 		}); // End .getJSON		
 	};  // End addRecord
@@ -125,7 +125,7 @@ var MongoData = (function() { 'use strict';
 		var request = {};
 		request.idRequested = currPoemId;  // Set currPoemId as the poem to delete.
 				
-		$.getJSON('http://192.168.56.101:30025/deleteRecord', request, function(data) {  // Passing in request with the poem ID parameter.
+		$.getJSON('http://10.0.0.7:30025/deleteRecord', request, function(data) {  // Passing in request with the poem ID parameter.
 			console.log('In getJSON /deleteRecord callback in index.js.');
 			console.log(data[0]);	// Show what's in data.		
 							
