@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Publisher-Subscriber Calculator</title>
+        <link type="text/css" rel="stylesheet" href="index.css" />        
+        <!-- script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script -->
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="Topic.js"></script>        
+        <script src="CalculateUi.js"></script>
+        <script src="Calculate.js"></script>
+    </head>
+    <body>
+		<div id="content">
+        <h1>Publisher-Subscriber Calculator</h1>
+        
+        <p>Enter two numbers, and click the applicable operation to perform.</p>
+        <div class="input">
+			<label><strong>Operand 1:</strong></label>
+	        <input type="number" id="operand1" value=3 />   
+        </div>
+        <div class="input">
+			<label><strong>Operand 2:</strong></label>   
+	        <input type="number" id="operand2" value=2 />
+        </div>
+		<hr />
+		<div id="buttons">
+	        <button id="addButton">Add</button>
+	        <button id="subtractButton">Subtract</button>
+	        <button id="multiplyButton">Multiply</button>
+        </div>
+        <h3>Result:</h3>
+        <div class="display">			
+			<p id="result"></p>
+        </div>
+        <h3>Subscriber Messages:</h3>
+        <div class="display">			
+			<p id="response"></p>
+        </div>      
+        </div>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+body {
+	color:#2B2B39; /* Very dark gray */
+	background-color:paleyellow;
+}
+#content {
+	font-family:sans-serif;
+	background-color:cornflowerblue;
+	padding:20px;
+	width:700px;
+	height:500px;
+	margin:auto;
+}
+h1, h3 {
+	text-align:center;
+	text-transform:uppercase;
+}
+.input {
+	display:inline-block;
+	padding-bottom: 20px;
+}
+#buttons {
+	text-align:center;
+}
+.display {
+	background-color:lightyellow;
+	border: 2px solid dimgray;
+	padding-top:5px;
+	width:525px;
+	height:50px;
+	margin:auto;
+	text-align:center;
+}
+

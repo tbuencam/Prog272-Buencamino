@@ -1,0 +1,66 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'grunt-contrib-bowercopy' ]
+2 info using npm@1.3.11
+3 info using node@v0.10.21
+4 verbose node symlink /usr/bin/node
+5 verbose cache add [ 'grunt-contrib-bowercopy', null ]
+6 verbose cache add name=undefined spec="grunt-contrib-bowercopy" args=["grunt-contrib-bowercopy",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'grunt-contrib-bowercopy',
+7 verbose parsed url   path: 'grunt-contrib-bowercopy',
+7 verbose parsed url   href: 'grunt-contrib-bowercopy' }
+8 silly lockFile 53fcc550-grunt-contrib-bowercopy grunt-contrib-bowercopy
+9 verbose lock grunt-contrib-bowercopy /home/adminuser/.npm/53fcc550-grunt-contrib-bowercopy.lock
+10 silly lockFile 53fcc550-grunt-contrib-bowercopy grunt-contrib-bowercopy
+11 silly lockFile 53fcc550-grunt-contrib-bowercopy grunt-contrib-bowercopy
+12 verbose addNamed [ 'grunt-contrib-bowercopy', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile f9603522-grunt-contrib-bowercopy grunt-contrib-bowercopy@
+15 verbose lock grunt-contrib-bowercopy@ /home/adminuser/.npm/f9603522-grunt-contrib-bowercopy.lock
+16 silly addNameRange { name: 'grunt-contrib-bowercopy', range: '*', hasData: false }
+17 verbose url raw grunt-contrib-bowercopy
+18 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-contrib-bowercopy' ]
+19 verbose url resolved https://registry.npmjs.org/grunt-contrib-bowercopy
+20 info trying registry request attempt 1 at 17:48:40
+21 http GET https://registry.npmjs.org/grunt-contrib-bowercopy
+22 http 404 https://registry.npmjs.org/grunt-contrib-bowercopy
+23 silly registry.get cb [ 404,
+23 silly registry.get   { date: 'Mon, 10 Mar 2014 21:48:40 GMT',
+23 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B)',
+23 silly registry.get     'content-type': 'application/json',
+23 silly registry.get     via: '1.1 varnish',
+23 silly registry.get     'cache-control': 'max-age=0',
+23 silly registry.get     'content-length': '52',
+23 silly registry.get     'accept-ranges': 'bytes',
+23 silly registry.get     age: '0',
+23 silly registry.get     'x-served-by': 'cache-v36-ASH, cache-lax1435-LAX',
+23 silly registry.get     'x-cache': 'MISS, MISS',
+23 silly registry.get     'x-cache-hits': '0, 0',
+23 silly registry.get     'x-timer': 'S1394488120.782136440,VS0,VS-645,VE-562,VE148',
+23 silly registry.get     'keep-alive': 'timeout=10, max=50',
+23 silly registry.get     connection: 'Keep-Alive' } ]
+24 silly lockFile f9603522-grunt-contrib-bowercopy grunt-contrib-bowercopy@
+25 silly lockFile f9603522-grunt-contrib-bowercopy grunt-contrib-bowercopy@
+26 error 404 'grunt-contrib-bowercopy' is not in the npm registry.
+26 error 404 You should bug the author to publish it
+26 error 404
+26 error 404 Note that you can also install from a
+26 error 404 tarball, folder, or http url, or git url.
+27 error System Linux 3.11.0-12-generic
+28 error command "/usr/bin/node" "/usr/bin/npm" "install" "grunt-contrib-bowercopy"
+29 error cwd /home/adminuser/git/Prog272-Buencamino/Week09_PubSub
+30 error node -v v0.10.21
+31 error npm -v 1.3.11
+32 error code E404
+33 verbose exit [ 1, true ]
