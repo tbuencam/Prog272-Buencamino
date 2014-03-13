@@ -1,5 +1,5 @@
 /**
- * @author Charlie Calvert
+ * @author Terence Buencamino
  */
 
 require.config({
@@ -9,8 +9,11 @@ require.config({
   }
 });
 
-require(["jquery","Subscriber", "Publisher",], function(j, sub, pub) {
+require(["jquery","Subscriber","Publisher"], function(j, sub, pub) {
 	console.log("Main called.");
-	sub.subscriber();
-	pub.publisher();
+	// Need to instatiate the calculate objects here.
+	sub.calculate();
+	pub.calculateUi();
+	// sub.subscriber();
+	// pub.publisher();
 });

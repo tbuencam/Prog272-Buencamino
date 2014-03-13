@@ -1,0 +1,40 @@
+/**
+ * @author Terence Buencamino
+ */
+/* jshint strict:true */
+
+
+define(['jquery', 'tinyPubSub'], function() {'use strict';   // I probably don't need jquery here.
+
+		// Constructor. Changed name from Subscriber.
+		function calculate() {
+			console.log("Calculate constructor called.");
+			$.subscribe('add', functionAdd);
+			$.subscribe('subtract', functionSubtract);	
+			$.subscribe('multiply', functionMultiply);
+		}
+
+		function functionAdd(event) {
+			console.log("Called functionAdd");
+			console.log(event);
+			event.add();
+			event.acknowledge("Received operands " + event.num1  + " and " + event.num2  + ", and the SUM (" + event.result + ") from publisher.");
+		}
+
+		function functionSubtract(event) {
+			console.log("Called functionSubtract");
+			console.log(event);
+			event.subtract();
+			event.acknowledge("Received operands " + event.num1  + " and " + event.num2  + ", and the DIFFERENCE (" + event.result + ") from publisher.");
+		}
+
+		function functionMultiply(event) {
+			console.log("Called functionMultiply");
+			console.log(event);
+			event.multiply();
+			event.acknowledge("Received operands " + event.num1  + " and " + event.num2  + ", and the PRODUCT (" + event.result + ") from publisher.");
+		}
+
+		return {calculate: calculate};
+
+});
