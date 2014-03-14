@@ -1,0 +1,30 @@
+[
+	{
+		"pathToConfig": "/home/adminuser/config.json",
+		"reallyWrite": true,
+		"bucketName": "prog272.tbuencam",
+		"folderToWalk": "/var/www/bc",
+		"s3RootFolder": "TestFolder",
+		"createFolderToWalkOnS3": true,
+		"createIndex": false,
+		"filesToIgnore": ["NodeStatic.js", "package.json"]
+	}, {
+		"pathToConfig": "c:\\src\\config\\config.json",
+		"reallyWrite": true,
+		"bucketName": "prog272.tbuencam",
+		"folderToWalk": "Files",
+		"s3RootFolder": "TestFolder",
+		"createFolderToWalkOnS3": true,
+		"createIndex": true,
+		"filesToIgnore": ["NodeStatic.js", "package.json"]
+	}, {
+		"pathToConfig": "/home/charlie/config.json",
+		"reallyWrite": true,
+		"bucketName": "bucket01.elvenware.com",
+		"folderToWalk": "CloudNotes",
+		"s3RootFolder": "FilesFive",
+		"createFolderToWalkOnS3": true,
+		"createIndex": true,
+		"filesToIgnore": ["Thumbs.db", ".gitignore", "MyFile.html"]
+	}
+]

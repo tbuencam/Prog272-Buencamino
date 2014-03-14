@@ -1,0 +1,6 @@
+You can find my files on s3 using the following URLs:
+https://s3-us-west-2.amazonaws.com/prog272.tbuencam/TestFolder/Sonnet1.html
+https://s3-us-west-2.amazonaws.com/prog272.tbuencam/TestFolder/Sonnet2.html
+https://s3-us-west-2.amazonaws.com/prog272.tbuencam/TestFolder/Sonnet3.html
+https://s3-us-west-2.amazonaws.com/prog272.tbuencam/TestFolder/Sonnet4.html
+https://s3-us-west-2.amazonaws.com/prog272.tbuencam/TestFolder/Sonnet5.html
