@@ -3,8 +3,6 @@
  */
 
 var express = require('express');
-//var routes = require('./routes');
-//var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var walkDirs = require("./Source/WalkDirs").walkDirs;
@@ -19,8 +17,6 @@ var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 30025);
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -30,7 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'Source')));
 app.use(express.static(path.join(__dirname, 'Images')));
 app.use(express.favicon('Images/favicon16.ico'));
-// app.use(express.favicon(path.join(__dirname, 'favicon16.ico')));
 
 // development only
 if ('development' == app.get('env')) {
@@ -44,26 +39,16 @@ app.get('/', function(request, response) { 'use strict';
     response.end();
 });
 
-//app.get('/', routes.index);
-// app.get('/users', user.list);
-
-/*
- * You will need to edit one or more objects in Options.json. 
- * They have this general format
-
-var options = {
-		pathToConfig: '/home/charlie/config.json',		
-		reallyWrite: true, 
-		bucketName: 'bucket01.elvenware.com',
-		folderToWalk: "Files",
-		s3RootFolder: "FilesTwo",
-		createFolderToWalkOnS3: true,
-		createIndex: true,
-		filesToIgnore: ['Thumbs.db', '.gitignore', 'MyFile.html']
-};
- 
- * Before filling it out, see the README file for this project. 
- */	
+// Reads the Poems collection and writes the first 5 poems to a directory in the StackEdit folder.
+app.get('/downloadPoems', function(request, response) {'use strict';
+	console.log("In app.js, downloadPoems called");
+ 	var targetDir = request.query.targetDir;  // The request object specifies the target directory.
+ 	console.log("In app.js, target directory is: " + targetDir);
+	queryMongo.downloadPoems(response, 'Poems', targetDir);  // Passing in collection name and target directory.
+	//var options = fs.readFileSync("Options.json", 'utf8');
+	//options = JSON.parse(options);
+	//response.send(options);
+});
 
 // Reads from Mongo database instead of the file system.
 app.get('/getOptions', function(request, response) {'use strict';
@@ -117,15 +102,15 @@ app.get('/buildAll', function(request, response) { 'use strict';
 
 app.get('/updateStaging', function(request, response) { 'use strict';
 	console.log("updateStaging called");
-	// Call the QueryMongo with the request to do the update.
-	console.log("Calling queryMongo.updateTCOCollection"); // Pass in the request because it has all the info needed.
+	// Call the applicable QueryMongo method with the request to do the update.
+	console.log("Calling queryMongo.updateTCOCollection");
 	queryMongo.updateTCOCollection(request, response);  
 });
 
 app.get('/updatePublishing', function(request, response) { 'use strict';
 	console.log("updatePublishing called");
-	// Call the QueryMongo with the request to do the update.
-	console.log("Calling queryMongo.updateCTACollection"); // Pass in the request because it has all the info needed.
+	// Call the applicable QueryMongo method with the request to do the update.
+	console.log("Calling queryMongo.updateCTACollection");
 	queryMongo.updateCTACollection(request, response);
 });
 

@@ -17,6 +17,7 @@ var QueryMongo = (function() {'use strict';
 	var targetCollection = null;  // The collection name for this project (midterm).
 	var inputFile = null;  // The JSON file to read to populate the collection. Read from config.json in constructor.
 	var addRecordFile = null; // The JSON file to read to add a record. Read from config.json in constructor.
+	var collectionObjectPoems = null; // The local collection for Poems.
 	var collectionObjectTCO = null; // The local collection for Transform Copy Options.
 	var collectionObjectCTA = null; // The local collection for Copy to AWS Options.
 	
@@ -67,6 +68,66 @@ var QueryMongo = (function() {'use strict';
 		console.log("Exiting getDatabase");
 	}; // End getDatabase
 
+
+	// Reads the Poems collection and writes the first 5 poems to a directory in the StackEdit folder.
+	// What's the Mongo command for getting just the first 5 records?? Or should I get all and just write the first 5 to file system?
+	QueryMongo.prototype.downloadPoems = function(initResponse, collectionName, targetDir) {
+		console.log("downloadPoems called");
+		console.log("collectionName is " + collectionName);
+		response = initResponse;
+		var baseDir = targetDir;
+		
+		getDatabase(response, collectionName, function(database, response, collectionName) {
+			console.log("In downloadPoems callback: " + collectionName);
+			
+			var currentCollection = null;
+			
+			  console.log("Getting collectionObjectPoems");
+			  if (collectionObjectPoems === null) {
+			     collectionObjectPoems = database.collection(collectionName);
+		      }
+			  currentCollection = collectionObjectPoems;
+	    
+			// Write the files to the local system and send the collection to the client.
+			currentCollection.find().toArray(function(err, theArray) {
+				if (err) {
+					console.log("Error in getCollection: " + err);
+				}
+				console.log("Found poems data.");
+				console.log("Calling private method writeFiveFiles.");
+				writeFiveFiles(theArray, baseDir);
+
+				console.log("Sending back the data.");								
+				response.send(theArray);
+			}); // End find and send back.
+			
+		});  // End getDatabase
+	};  // End downloadPoems
+
+	
+	var writeFiveFiles = function(theArray, baseDir) {
+		// Write a single .md file to the file system, and for now, hardcode the path.
+		// So an issue is that the Sonnets01 folder has to already exist. Otherwise, an error is thrown. How do you create the directory?
+		// Research fs commands.
+		console.log("Base directory is: " + baseDir);
+		var targetDirectory = baseDir + "Sonnets01/";  // Maybe move the "Sonnet" part up here??
+		var extension = ".md";
+		var outFileString = "";
+		
+		// Synchronously, write it back to the file system as Sources.md.
+		// fs.mkdir(path, [mode], callback);
+		fs.mkdirSync(targetDirectory);	// Create the directory.
+
+		for(var i = 1; i < 6; i++) {
+			outFileString = targetDirectory + 'Sonnet'+ i + extension;	
+			fs.writeFile(outFileString, theArray[i-1].content, 'utf8', function(err, data){ // Test changing from writeFileSync to just writeFile.
+		      if (err) throw err;		      
+	        }); // End writeFile
+	        console.log('Wrote Sonnet' + i + '.md.');
+		} // End loop to write out 5 files
+        			
+	};  // End writeFiveFiles
+		
 	
 	QueryMongo.prototype.getCollection = function(initResponse, collectionName) {
 		console.log("getCollection called");

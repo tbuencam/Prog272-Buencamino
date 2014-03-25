@@ -15,7 +15,8 @@ define(['jquery'], function() {'use strict';
         $("#tranformBackButton").click(backwardTransform);
         $("#forwardButton").click(forward);
         $("#backButton").click(backward);
-        $("#buildAll").click(buildAll);
+        $("#buildAll").click(buildAll);        
+        $("#downloadPoems").click(downloadPoems);     
         $("#updateStaging").click(updateStaging);
         $("#updatePublishing").click(updatePublishing);
 
@@ -24,6 +25,23 @@ define(['jquery'], function() {'use strict';
         console.log("In AwsUi constructor, calling getOptions.");
         getOptions();
     }
+
+	// Look at code from MongoMark, Midterm, and Charlie's MongoTalk05.
+ 	// Fetches 5 poems from the Poems collection and writes them out as markdown to a folder in the StackEdit directory.  
+    var downloadPoems = function() {
+		var targetDir = $('#downloadFilesTo').val();  // Need to add this to the UI. Wait, hardcode first!
+//		var targetDir = "/home/adminuser/Dropbox/StackEdit/";
+		console.log("Target directory is: " + targetDir);
+		var request = {};
+		request.targetDir = targetDir;  // Set the target base directory.		
+        $.getJSON("/downloadPoems", request, function(poemData) {  // Remove parameter in callback? QueryMongo should just write the 5 poesm to the file system.
+			console.log("downloadPoems called");
+			console.log("Poems fetched:");
+			console.log(JSON.stringify(poemData));  // DBUG
+        }).fail(function(a) {
+            alert(JSON.stringify(a));
+        });
+    }; // End downloadPoems
 
     var buildAll = function() {
         $.getJSON("/buildAll", {
