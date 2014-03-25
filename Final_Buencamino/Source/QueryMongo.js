@@ -110,24 +110,41 @@ var QueryMongo = (function() {'use strict';
 		// So an issue is that the Sonnets01 folder has to already exist. Otherwise, an error is thrown. How do you create the directory?
 		// Research fs commands.
 		console.log("Base directory is: " + baseDir);
-		var targetDirectory = baseDir + "Sonnets01/";  // Maybe move the "Sonnet" part up here??
+		var sonnetNum = 1;
+		
+//		var targetDirectory = baseDir + "Sonnets01/";  // Maybe move the "Sonnet" part up here??
+		var dirNum = padNumber(sonnetNum, 2, 0); // 2nd param is number of places.
+		var targetDirectory = baseDir + "Sonnets" + dirNum + "/";
 		var extension = ".md";
 		var outFileString = "";
+		var filename = "";
 		
 		// Synchronously, write it back to the file system as Sources.md.
 		// fs.mkdir(path, [mode], callback);
 		fs.mkdirSync(targetDirectory);	// Create the directory.
 
-		for(var i = 1; i < 6; i++) {
-			outFileString = targetDirectory + 'Sonnet'+ i + extension;	
+		for(var i = 1; i < 8; i++, sonnetNum++) {
+			filename = padNumber(sonnetNum, 2, 0);
+			outFileString = targetDirectory + 'Sonnet'+ filename + extension;
 			fs.writeFile(outFileString, theArray[i-1].content, 'utf8', function(err, data){ // Test changing from writeFileSync to just writeFile.
 		      if (err) throw err;		      
 	        }); // End writeFile
-	        console.log('Wrote Sonnet' + i + '.md.');
+	        console.log('Wrote Sonnet' + filename + '.md.');
 		} // End loop to write out 5 files
         			
 	};  // End writeFiveFiles
 		
+	// Private helper function called by writeFiveFiles to push in leading zeros in folder and file names.
+	// Pass in number, 3, and 0.
+	var padNumber = function(numberToPad, width, padValue) {
+		padValue = padValue || '0';
+		numberToPad = numberToPad + '';
+		if (numberToPad.length >= width) {
+			return numberToPad;
+		} else {
+			return new Array(width - numberToPad.length + 1).join(padValue) + numberToPad;
+		}
+	}; // End padNumber
 	
 	QueryMongo.prototype.getCollection = function(initResponse, collectionName) {
 		console.log("getCollection called");
