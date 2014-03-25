@@ -6,7 +6,7 @@ define(['jquery'], function() {'use strict';
     var dataIndex = 0;
     var dataIndexTransform = 0;
 
-	// Constructor
+	// Constructor.
     function AwsUi() {
         $("#listBuckets").click(listBuckets);
         $("#copyToS3").click(copyToS3);
@@ -16,6 +16,8 @@ define(['jquery'], function() {'use strict';
         $("#forwardButton").click(forward);
         $("#backButton").click(backward);
         $("#buildAll").click(buildAll);
+        $("#updateStaging").click(updateStaging);
+        $("#updatePublishing").click(updatePublishing);
 
         console.log("In AwsUi constructor, calling getBuildConfig.");
         getBuildConfig();
@@ -36,7 +38,60 @@ define(['jquery'], function() {'use strict';
                 }
             }
         });
-    };
+    }; // End buildAll
+ 
+	// Reads staging configuration data from the UI fields, packages it, and sends it to app.js for processing.
+   var updateStaging = function() {
+	   var pathToPython = $("#pathToPython").val();
+	   var copyFrom = $("#copyFrom").val();	   
+	   var copyTo = $("#copyTo").val();
+	   // Make filesToCopy into an array.
+	   var filesToCopy = [];
+	   filesToCopy = $("#filesToCopy").val().split(',');
+	   	   	   
+        $.getJSON("/updateStaging", {
+            options : JSON.stringify(transformOptions),
+            index : dataIndexTransform,
+            newPathToPython : pathToPython,
+            newCopyFrom : copyFrom,
+            newCopyTo : copyTo,
+            newFilesToCopy : filesToCopy,
+        }, function(result) {
+			// Refreshing the section from the database by calling getBuildConfig.
+			getBuildConfig();            
+        });
+    }; // End updateStaging
+    
+	// Reads publishing configuration data from the UI fields, packages it, and sends it to app.js for processing.
+   var updatePublishing = function() {
+	   var pathToConfig = $("#pathToConfig").val();
+	   var reallyWrite = $("#reallyWrite").val();  
+	   var bucketName = $("#bucketName").val();	   
+	   var folderToWalk = $("#folderToWalk").val();	   
+	   var s3RootFolder = $("#s3RootFolder").val();	    
+	   var createFolderToWalkOnS3 = $("#createFolderToWalkOnS3").val();	   
+	   var createIndex = $("#createIndex").val();	   	   
+	   // Make filesToIgnore into an array.
+	   var filesToIgnore = [];
+	   filesToIgnore = $("#filesToIgnore").val().split(',');
+	   	   	   
+        $.getJSON("/updatePublishing", {
+            options : JSON.stringify(options),
+            index : dataIndex,            
+            newPathToConfig : pathToConfig,
+            newReallyWrite : reallyWrite,
+            newBucketName : bucketName,
+            newFolderToWalk : folderToWalk,
+            newS3RootFolder : s3RootFolder,
+            newCreateFolderToWalkOnS3 : createFolderToWalkOnS3,
+            newCreateIndex : createIndex,
+            newFilesToIgnore : filesToIgnore,       
+        }, function(result) {
+			// Refreshing the section from the database by calling getOptions.
+			getOptions();       
+        });
+    }; // End updatePublishing
+       
 
     var copyToS3 = function() {
         $.getJSON("/copyToS3", {
@@ -46,25 +101,28 @@ define(['jquery'], function() {'use strict';
         });
     };
 
+	// Displays the build/staging (Transform Configuration) information in the first section. 
     var displayTransformConfig = function(options) {
-        $("#pathToPython").html(options.pathToPython);
-        $("#copyFrom").html(options.copyFrom);
-        $("#copyTo").html(options.copyTo);
-        $("#filesToCopy").html(options.filesToCopy);
-    };
+        $("#pathToPython").val(options.pathToPython);
+        $("#copyFrom").val(options.copyFrom);        
+        $("#copyTo").val(options.copyTo);       
+        $("#filesToCopy").val(options.filesToCopy);        
+    }; // End displayTransformConfig
 
+	// Displays the publishing (Copy to S3) information in the second section.
     var displayOptions = function(options) {
-        $("#currentDocument").html(dataIndex + 1);
-        $("#pathToConfig").html(options.pathToConfig);
-        $("#reallyWrite").html(options.reallyWrite ? "true" : "false");
-        $("#bucketName").html(options.bucketName);
-        $("#folderToWalk").html(options.folderToWalk);
-        $("#s3RootFolder").html(options.s3RootFolder);
-        $("#createFolderToWalkOnS3").html(options.createFolderToWalkOnS3 ? "true" : "false");
-        $("#createIndex").html(options.createIndex ? "true" : "false");
-        $("#filesToIgnore").html(options.filesToIgnore);
+        $("#currentDocument").html(dataIndex + 1); // This is just a <p>.
+        $("#pathToConfig").val(options.pathToConfig);
+        $("#reallyWrite").val(options.reallyWrite ? "true" : "false");
+        $("#bucketName").val(options.bucketName);
+        $("#folderToWalk").val(options.folderToWalk);
+        $("#s3RootFolder").val(options.s3RootFolder);
+        $("#createFolderToWalkOnS3").val(options.createFolderToWalkOnS3 ? "true" : "false");
+        $("#createIndex").val(options.createIndex ? "true" : "false");
+        $("#filesToIgnore").val(options.filesToIgnore);
     };
 
+	// Fetches the data and calls displayTransformConfig to populate the first section.
     var getBuildConfig = function() {
         $.getJSON("/getBuildConfig", function(optionsInit) {
             transformOptions = optionsInit;
@@ -73,6 +131,8 @@ define(['jquery'], function() {'use strict';
             alert(JSON.stringify(a));
         });
     };
+    
+ 	// Fetches the data and calls displayOptions to populate the second section.   
     var getOptions = function() {
         $.getJSON("/getOptions", function(optionsInit) {
             options = optionsInit;
@@ -127,7 +187,3 @@ define(['jquery'], function() {'use strict';
 
     return AwsUi;
 });
-/*
- $(document).ready(function() { 'use strict';
- new AwsUi();
- }); */

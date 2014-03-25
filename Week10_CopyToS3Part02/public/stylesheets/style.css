@@ -17,16 +17,28 @@ a {
 .displayKing {
 	overflow: hidden;	
 	border: solid black 1px;
-	background-color: #00DDAA;	
+	background-color: #00DDAA;
+	background-color: DodgerBlue;	
 	width: 788px;
 	padding: 5px;
 }
 
-.displayKing p {
+.displayKing p, input {
 	display: inline-block;
 	padding-left: 3px;
 	width:65%;    
 	border: solid black 1px;
 	background-color: #00BBFF;
+	background-color: LightYellow;
+	background-color: White;	
 	margin: 1%;
+}
+
+.displayKing p {
+	background-color: LightGray;	
+}
+
+.optionButtons {
+	margin-top:10px;
+	margin-bottom:10px;
 }

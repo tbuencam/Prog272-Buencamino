@@ -48,20 +48,11 @@ var QueryMongo = (function() {'use strict';
 	}  // End constructor
 
 
-	// NOTE: The commented out code here is left in intentionally. This was from your original code but does not work using MongoLab.
 	var getDatabase = function(response, collectionName, func) {
 		console.log('Called getDatabase');
 		if (database !== null) {
 			console.log('database exists');
 			func(database, response, collectionName);
-			/*database.open(function(err, database) {
-				if (err) {
-					console.log("Problem opening database.");  // There is a problem here when using MongoLab.
-					throw err;
-				}
-				console.log("Database opened.");
-				func(database);
-			}); */
 		} else {
 			console.log('Querying for database');
 			MongoClient.connect(url, function(err, databaseResult) {
@@ -87,10 +78,6 @@ var QueryMongo = (function() {'use strict';
 			
 			var currentCollection = null;
 			
-			//if (collectionObjectTCO === null) {
-			  //console.log("Getting collectionObjectTCO");
-			  //collectionObjectTCO = database.collection(collectionName); // Changed from targetCollection.
-		    //}
 		    if (collectionName === 'TransformCopyOptions') {
 			  console.log("Getting collectionObjectTCO");
 			  if (collectionObjectTCO === null) {
@@ -111,12 +98,9 @@ var QueryMongo = (function() {'use strict';
 				if (err) {
 					console.log("Error in getCollection: " + err);
 				}
-				// console.dir(theArray);
 				console.log("Found collection item.");
-				// database.close();
-				//console.log("Sending the array");
 				console.log("Sending back the data.");
-				console.log(theArray);  // DBUG
+				console.log(theArray);
 				response.send(theArray);
 			}); // End find and send back.
 			
@@ -147,7 +131,6 @@ var QueryMongo = (function() {'use strict';
 					if (err) {
 					throw err;
 					}	
-					//database.close();
 					console.log("Poems collection created.");
 					response.send({result:'Success'});   // For testing
 				});// End insert
@@ -170,7 +153,6 @@ var QueryMongo = (function() {'use strict';
 				if (err) {
 				throw err;
 				}	
-				//database.close();
 				console.log("Insert succeeded");
 				response.send({result:'Success'});
 			}); // End insert
@@ -178,7 +160,8 @@ var QueryMongo = (function() {'use strict';
 	};  // End addRecordfromJSONFile
 	
 
-    // Removes the currently selected poem from the collection by using the value of _id.
+    // Removes the currently selected item from the collection by using the value of _id.
+    // Not used in final project.
 	QueryMongo.prototype.removeRecordfromCollection = function(initResponse,id) {
 		console.log("QueryMongo.removeById called");
 		response = initResponse;
@@ -190,13 +173,98 @@ var QueryMongo = (function() {'use strict';
 				if (err) {
 					throw err;
 				}
-				//database.close();
 				console.log("Item deleted");
 			}); 
 			
 		});
-	}; // End removeRecordfromCollection	
+	}; // End removeRecordfromCollection
+
+	// Updates the staging config (TCO) collection using the updateDetails object. updateDetails contains all of the update info for that record, including the ID.
+	QueryMongo.prototype.updateTCOCollection = function(updateDetails, initResponse) {
+		console.log("QueryMongo.updateCTOCollection called");
+		
+		response = initResponse;
+		
+		var collection = collectionObjectTCO; // The collection to be updated.		
+		
+		// Use the index into the data (options) to determine the value of _id for the record to update.
+		var options = JSON.parse(updateDetails.query.options);
+		var index = updateDetails.query.index;
+		console.log("Pointing to current index:  " + index);
+		
+		var idString = ""+options[index]._id;  // Ensures the ID is a string.
+		console.log("Request object has selected record idString: " + idString);
+
+		// Vet the data in the request object.		
+		console.log("Update details:");
+		console.log("New pathToPython:  " + updateDetails.query.newPathToPython);
+		console.log("New newCopyFrom:  " + updateDetails.query.newCopyFrom);	
+		console.log("New newCopyTo:  " + updateDetails.query.newCopyTo);
+		console.log("New newFilesToCopy:  " + updateDetails.query.newFilesToCopy);
+				
+		collection.update({ "_id": mongodb.ObjectID(idString) },
+		   { "pathToPython":updateDetails.query.newPathToPython, "copyFrom": updateDetails.query.newCopyFrom, "copyTo": updateDetails.query.newCopyTo, "filesToCopy": updateDetails.query.newFilesToCopy },	
+			function(err, data) {
+				if (err) {
+					throw err;
+				}
+
+			console.log("Item updated");
+			response.send({result:'Success'});  // Send a result of success for now.	
+		}); 
+	      
+	}; // End updateTCOCollection		
+
 	
+	// Updates the publishing config (CTA) collection using the updateDetails object. updateDetails contains all of the update info for that record, including the ID.
+	QueryMongo.prototype.updateCTACollection = function(updateDetails, initResponse) {
+		console.log("QueryMongo.updateCTACollection called");
+		
+		response = initResponse;
+		
+		var collection = collectionObjectCTA; // The collection to be updated.
+		
+		// Use the index into the data (options) to determine the value of _id for the record to update.
+		var options = JSON.parse(updateDetails.query.options);
+		var index = updateDetails.query.index;
+		console.log("Pointing to current index:  " + index);
+		
+		var idString = ""+options[index]._id;  // Ensures the ID is a string.
+		console.log("Request object has selected record idString: " + idString);
+
+		// Vet the data in the request object.		
+		console.log("Update details:");
+		console.log("New pathToConfig:  " + updateDetails.query.newPathToConfig);
+		console.log("New reallyWrite:  " + updateDetails.query.newReallyWrite);	
+		console.log("New bucketName:  " + updateDetails.query.newBucketName);
+		console.log("New folderToWalk:  " + updateDetails.query.newFolderToWalk);
+		console.log("New s3RootFolder:  " + updateDetails.query.newS3RootFolder);
+		console.log("New createFolderToWalkOnS3:  " + updateDetails.query.newCreateFolderToWalkOnS3);	
+		console.log("New createIndex:  " + updateDetails.query.newCreateIndex);
+		console.log("New filesToIgnore:  " + updateDetails.query.newFilesToIgnore);
+						
+		collection.update({ "_id": mongodb.ObjectID(idString) },
+		   { 
+			   "pathToConfig":updateDetails.query.newPathToConfig,
+			   "reallyWrite": updateDetails.query.newReallyWrite,
+			   "bucketName": updateDetails.query.newBucketName,
+			   "folderToWalk": updateDetails.query.newFolderToWalk,			   
+			   "s3RootFolder":updateDetails.query.newS3RootFolder,
+			   "createFolderToWalkOnS3": updateDetails.query.newCreateFolderToWalkOnS3,
+			   "createIndex": updateDetails.query.newCreateIndex,
+			   "filesToIgnore": updateDetails.query.newFilesToIgnore
+		   },	
+			function(err, data) {
+				if (err) {
+					throw err;
+				}
+
+			console.log("Item updated");
+			response.send({result:'Success'});  // Send a result of success for now.	
+		}); 
+	      
+	}; // End updateCTACollection		
+
 
 	return QueryMongo;
 

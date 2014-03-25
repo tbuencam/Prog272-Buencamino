@@ -65,7 +65,7 @@ var options = {
  * Before filling it out, see the README file for this project. 
  */	
 
-// Rework to read from Mongo database.
+// Reads from Mongo database instead of the file system.
 app.get('/getOptions', function(request, response) {'use strict';
 	console.log("In app.js, getOptions Express called");
 	queryMongo.getCollection(response, 'CopytoAwsOptions');  // Passing in collection name.
@@ -113,6 +113,20 @@ app.get('/buildAll', function(request, response) { 'use strict';
 	console.log("buildAll called");	
 	var options = JSON.parse(request.query.options);
 	buildAll(response, options, request.query.index);
+});
+
+app.get('/updateStaging', function(request, response) { 'use strict';
+	console.log("updateStaging called");
+	// Call the QueryMongo with the request to do the update.
+	console.log("Calling queryMongo.updateTCOCollection"); // Pass in the request because it has all the info needed.
+	queryMongo.updateTCOCollection(request, response);  
+});
+
+app.get('/updatePublishing', function(request, response) { 'use strict';
+	console.log("updatePublishing called");
+	// Call the QueryMongo with the request to do the update.
+	console.log("Calling queryMongo.updateCTACollection"); // Pass in the request because it has all the info needed.
+	queryMongo.updateCTACollection(request, response);
 });
 
 // Reworked to read from Mongo database. Call getCollection with parameter for collection.
