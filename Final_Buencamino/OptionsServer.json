@@ -1,0 +1,14 @@
+{
+    "pathToConfig": "/home/adminuser/config.json",
+    "reallyWrite": true,
+    "bucketName": "prog270.buencamino.com",
+    "folderToWalk": "/var/www/bc",
+    "s3RootFolder": "TestFolder",
+    "createFolderToWalkOnS3": true,
+    "createIndex": false,
+    "filesToIgnore": [
+        "Thumbs.db",
+        ".gitignore",
+        "MyFile.html"
+    ]
+}

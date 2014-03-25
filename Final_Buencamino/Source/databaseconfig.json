@@ -1,0 +1,8 @@
+[
+{
+   "targetCollection":"TransformCopyOptions",
+   "inputFile": "Shakespeare.json",
+   "addRecordFile": "Data.json",
+   "url": "mongodb://prog272:m0ng0Pwd@ds053708.mongolab.com:53708/buencamino01"
+}
+]

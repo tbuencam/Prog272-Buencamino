@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AwsBasicS3</title>
+        <link rel="shortcut icon" href="favicon16.png">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <script data-main="Main" src="require.js"> </script>
+        <!-- script src="jquery-1.11.0.js"></script>
+        <script src="AwsUi.js"></script -->
+    </head>
+    <body>
+        <h1>AwsBasicS3</h1>        
+        <p>Welcome to AwsBasicS3</p>
+        <div>
+        <img src="Bar02.png">
+        </div>
+        <h2>STAGING CONFIGURATION</h2>
+        <label>Select Configuration</label>
+        <button id="tranformBackButton">&lt;&lt;</button>
+        <button id="transformForwardButton">&gt;&gt;</button>
+        <p id="copyResultA"></p>
+        <div class="displayKing">
+            <label for="pathToPython">Path to Python</label>
+            <input type="text" id="pathToPython" >
+            <label for="copyFrom">Copy from</label>
+            <input type="text" id="copyFrom" >           
+            <label for="copyTo">Copy to</label>
+            <input type="text" id="copyTo" >           
+            <label for="filesToCopy">Files to copy</label>
+			<input type="text" id="filesToCopy" >          
+        </div>
+        <div class="optionButtons">
+	        <button id="updateStaging">Update Configuration</button>
+	        <button id="buildAll">Transform and copy</button>
+        </div>                       
+        <div>
+			<img src="Bar02.png">
+        </div>
+        <h2>PUBLISHING CONFIGURATION</h2>       
+         <label>Select Configuration</label>
+         <button id="backButton"> &lt;&lt; </button>
+         <button id="forwardButton"> &gt;&gt; </button>
+      
+         <button id="listBuckets">Get Buckets</button>
+         <button id="getOptions"> Get Options </button>
+         <ul id="buckets"></ul>
+             
+        <div class="displayKing">
+            <label for="documentCount">Document Count</label>
+            <p id="documentCount">-</p>
+            <label for="currentDocument">Current Document</label>
+            <p id="currentDocument">-</p>
+            <label for="pathToConfig">pathToConfig</label>
+ 			<input type="text" id="pathToConfig" >           
+            <label for="reallyWrite">reallyWrite</label>
+  			<input type="text" id="reallyWrite" >        
+            <label for="bucketName">bucketName</label>
+  			<input type="text" id="bucketName" >      
+            <label for="folderToWalk">folderToWalk</label>
+  			<input type="text" id="folderToWalk" >        
+            <label for="s3RootFolder">s3RootFolder</label>
+  			<input type="text" id="s3RootFolder" >        
+            <label for="createFolderToWalkOnS3">createFolderToWalkOnS3</label>
+  			<input type="text" id="createFolderToWalkOnS3" >        
+            <label for="createIndex">createIndex</label>
+  			<input type="text" id="createIndex" >                   
+            <label for="filesToIgnore">filesToIgnore</label>
+  			<input type="text" id="filesToIgnore" >                   
+        </div>
+        <div class="optionButtons">
+	        <button id="updatePublishing">Update Configuration</button>			
+			<button id="copyToS3"> Copy to S3 </button>			
+        </div>
+        <div>
+			<img src="Bar02.png">
+        </div>
+        <div class="displayKing">            
+            <h2>Files Copied</h2>
+            <ul id="buildData">
+            </ul>
+        </div>
+    </body>
+</html>
