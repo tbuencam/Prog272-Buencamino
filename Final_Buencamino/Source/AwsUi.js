@@ -26,15 +26,13 @@ define(['jquery'], function() {'use strict';
         getOptions();
     }
 
-	// Look at code from MongoMark, Midterm, and Charlie's MongoTalk05.
- 	// Fetches 5 poems from the Poems collection and writes them out as markdown to a folder in the StackEdit directory.  
+	// Fetches 5 poems from the Poems collection and writes them out as markdown to a folder in the StackEdit directory.  
     var downloadPoems = function() {
-		var targetDir = $('#downloadFilesTo').val();  // Need to add this to the UI. Wait, hardcode first!
-//		var targetDir = "/home/adminuser/Dropbox/StackEdit/";
+		var targetDir = $('#downloadFilesTo').val();
 		console.log("Target directory is: " + targetDir);
 		var request = {};
 		request.targetDir = targetDir;  // Set the target base directory.		
-        $.getJSON("/downloadPoems", request, function(poemData) {  // Remove parameter in callback? QueryMongo should just write the 5 poesm to the file system.
+        $.getJSON("/downloadPoems", request, function(poemData) {
 			console.log("downloadPoems called");
 			console.log("Poems fetched:");
 			console.log(JSON.stringify(poemData));  // DBUG
@@ -60,13 +58,13 @@ define(['jquery'], function() {'use strict';
  
 	// Reads staging configuration data from the UI fields, packages it, and sends it to app.js for processing.
    var updateStaging = function() {
-	   var pathToPython = $("#pathToPython").val();
-	   var copyFrom = $("#copyFrom").val();	   
-	   var copyTo = $("#copyTo").val();
-	   // Make filesToCopy into an array.
-	   var filesToCopy = [];
-	   filesToCopy = $("#filesToCopy").val().split(',');
-	   	   	   
+		var pathToPython = $("#pathToPython").val();
+		var copyFrom = $("#copyFrom").val();
+		var copyTo = $("#copyTo").val();
+		// Make filesToCopy into an array.
+		var filesToCopy = [];
+		filesToCopy = $("#filesToCopy").val().split(',');
+
         $.getJSON("/updateStaging", {
             options : JSON.stringify(transformOptions),
             index : dataIndexTransform,
@@ -82,17 +80,17 @@ define(['jquery'], function() {'use strict';
     
 	// Reads publishing configuration data from the UI fields, packages it, and sends it to app.js for processing.
    var updatePublishing = function() {
-	   var pathToConfig = $("#pathToConfig").val();
-	   var reallyWrite = $("#reallyWrite").val();  
-	   var bucketName = $("#bucketName").val();	   
-	   var folderToWalk = $("#folderToWalk").val();	   
-	   var s3RootFolder = $("#s3RootFolder").val();	    
-	   var createFolderToWalkOnS3 = $("#createFolderToWalkOnS3").val();	   
-	   var createIndex = $("#createIndex").val();	   	   
-	   // Make filesToIgnore into an array.
-	   var filesToIgnore = [];
-	   filesToIgnore = $("#filesToIgnore").val().split(',');
-	   	   	   
+		var pathToConfig = $("#pathToConfig").val();
+		var reallyWrite = $("#reallyWrite").val();  
+		var bucketName = $("#bucketName").val();
+		var folderToWalk = $("#folderToWalk").val();
+		var s3RootFolder = $("#s3RootFolder").val();
+		var createFolderToWalkOnS3 = $("#createFolderToWalkOnS3").val();
+		var createIndex = $("#createIndex").val();
+		// Make filesToIgnore into an array.
+		var filesToIgnore = [];
+		filesToIgnore = $("#filesToIgnore").val().split(',');
+
         $.getJSON("/updatePublishing", {
             options : JSON.stringify(options),
             index : dataIndex,            
@@ -150,7 +148,7 @@ define(['jquery'], function() {'use strict';
         });
     };
     
- 	// Fetches the data and calls displayOptions to populate the second section.   
+	// Fetches the data and calls displayOptions to populate the second section.
     var getOptions = function() {
         $.getJSON("/getOptions", function(optionsInit) {
             options = optionsInit;

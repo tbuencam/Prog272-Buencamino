@@ -83,12 +83,12 @@ var QueryMongo = (function() {'use strict';
 			
 			var currentCollection = null;
 			
-			  console.log("Getting collectionObjectPoems");
-			  if (collectionObjectPoems === null) {
-			     collectionObjectPoems = database.collection(collectionName);
-		      }
-			  currentCollection = collectionObjectPoems;
-	    
+			console.log("Getting collectionObjectPoems");
+			if (collectionObjectPoems === null) {
+			collectionObjectPoems = database.collection(collectionName);
+			}
+			currentCollection = collectionObjectPoems;
+
 			// Write the files to the local system and send the collection to the client.
 			currentCollection.find().toArray(function(err, theArray) {
 				if (err) {
@@ -108,29 +108,34 @@ var QueryMongo = (function() {'use strict';
 	
 	var writeFiveFiles = function(theArray, baseDir) {
 		console.log("Base directory is: " + baseDir);
-		var sonnetNum = 1;
-		
- 		// var targetDirectory = baseDir + "Sonnets01/";  // Maybe move the "Sonnet" part up here??
-		var dirNum = padNumber(sonnetNum, 2, 0); // 2nd param is number of places.
-		var targetDirectory = baseDir + "Sonnets" + dirNum + "/";
+		var sonnetNum = 1;		
+		var dirNum = "";
+		var targetDirectory = "";
 		var extension = ".md";
 		var outFileString = "";
 		var filename = "";
+		var markdownContent = "";
+		var h2Token = "##";
 		
-		// Synchronously, write it back to the file system as Sources.md.
-		// fs.mkdir(path, [mode], callback);
-		// fs.mkdirSync(targetDirectory);	// Create the directory.
-		makeDirectory(targetDirectory);	// Create the directory if it does not already exist.
+		// Writes out 5 directories of files.
+		for(var i = 1; i < 6; i++) {
+			// Writes out 7 files from 7 contiguous records.
+			dirNum = padNumber(i, 2, 0);
+			targetDirectory = baseDir + "Sonnets" + dirNum + "/";
+			makeDirectory(targetDirectory); // Create the directory if it does not already exist.
+			
+			for(var j = 0; j < 7; j++, sonnetNum++) {
+				filename = padNumber(sonnetNum, 2, 0);
+				outFileString = targetDirectory + 'Sonnet'+ filename + extension;
+				// Create the markdown content using the title and content.
+				markdownContent = h2Token + theArray[sonnetNum-1].title + '\n' + theArray[sonnetNum-1].content;				
+				fs.writeFile(outFileString, markdownContent, 'utf8', function(err, data){					
+					if (err) throw err;     
+				}); // End writeFile
+				console.log('Wrote Sonnet' + filename + '.md.');
+			} // End loop to write out 7 files
+		}	
 
-		for(var i = 1; i < 8; i++, sonnetNum++) {
-			filename = padNumber(sonnetNum, 2, 0);
-			outFileString = targetDirectory + 'Sonnet'+ filename + extension;
-			fs.writeFile(outFileString, theArray[i-1].content, 'utf8', function(err, data){ // Test changing from writeFileSync to just writeFile.
-		      if (err) throw err;		      
-	        }); // End writeFile
-	        console.log('Wrote Sonnet' + filename + '.md.');
-		} // End loop to write out 5 files
-        			
 	};  // End writeFiveFiles
 
 	// Helper method to make a directory only if it does not already exist.
@@ -143,8 +148,8 @@ var QueryMongo = (function() {'use strict';
 				console.log("Successfully created folder: "+ pathName);
 			}
 		});	
-	}; // End makeDirectory
-		
+	} // End makeDirectory
+
 	// Private helper function called by writeFiveFiles to push in leading zeros in folder and file names.
 	// Pass in number, 2, and 0. Use 2 because only counting up to 2 places (35 sonnets).
 	var padNumber = function(numberToPad, width, padValue) {
@@ -167,21 +172,21 @@ var QueryMongo = (function() {'use strict';
 			
 			var currentCollection = null;
 			
-		    if (collectionName === 'TransformCopyOptions') {
-			  console.log("Getting collectionObjectTCO");
-			  if (collectionObjectTCO === null) {
-			     collectionObjectTCO = database.collection(collectionName); // Changed from targetCollection.
-		      }
-			  currentCollection = collectionObjectTCO;
-		    }
-		    else if (collectionName === 'CopytoAwsOptions'){
-			  console.log("Getting collectionObjectCTA");
-			  if (collectionObjectCTA === null) {
-			     collectionObjectCTA = database.collection(collectionName); // Changed from targetCollection.
-			  }
-			  currentCollection = collectionObjectCTA;				
+				if (collectionName === 'TransformCopyOptions') {
+					console.log("Getting collectionObjectTCO");
+					if (collectionObjectTCO === null) {
+					collectionObjectTCO = database.collection(collectionName); // Changed from targetCollection.
+				}
+			currentCollection = collectionObjectTCO;
 			}
-		    
+			else if (collectionName === 'CopytoAwsOptions'){
+				console.log("Getting collectionObjectCTA");
+				if (collectionObjectCTA === null) {
+					collectionObjectCTA = database.collection(collectionName); // Changed from targetCollection.
+				}
+			currentCollection = collectionObjectCTA;		
+			}
+
 			// Send the collection to the client. This will be a different collection depending on the call.
 			currentCollection.find().toArray(function(err, theArray) {
 				if (err) {
@@ -292,7 +297,7 @@ var QueryMongo = (function() {'use strict';
 		console.log("New newFilesToCopy:  " + updateDetails.query.newFilesToCopy);
 				
 		collection.update({ "_id": mongodb.ObjectID(idString) },
-		   { "pathToPython":updateDetails.query.newPathToPython, "copyFrom": updateDetails.query.newCopyFrom, "copyTo": updateDetails.query.newCopyTo, "filesToCopy": updateDetails.query.newFilesToCopy },	
+		{ "pathToPython":updateDetails.query.newPathToPython, "copyFrom": updateDetails.query.newCopyFrom, "copyTo": updateDetails.query.newCopyTo, "filesToCopy": updateDetails.query.newFilesToCopy },	
 			function(err, data) {
 				if (err) {
 					throw err;
@@ -301,7 +306,7 @@ var QueryMongo = (function() {'use strict';
 			console.log("Item updated");
 			response.send({result:'Success'});  // Send a result of success for now.	
 		}); 
-	      
+
 	}; // End updateTCOCollection		
 
 	
@@ -333,16 +338,16 @@ var QueryMongo = (function() {'use strict';
 		console.log("New filesToIgnore:  " + updateDetails.query.newFilesToIgnore);
 						
 		collection.update({ "_id": mongodb.ObjectID(idString) },
-		   { 
-			   "pathToConfig":updateDetails.query.newPathToConfig,
-			   "reallyWrite": updateDetails.query.newReallyWrite,
-			   "bucketName": updateDetails.query.newBucketName,
-			   "folderToWalk": updateDetails.query.newFolderToWalk,			   
-			   "s3RootFolder":updateDetails.query.newS3RootFolder,
-			   "createFolderToWalkOnS3": updateDetails.query.newCreateFolderToWalkOnS3,
-			   "createIndex": updateDetails.query.newCreateIndex,
-			   "filesToIgnore": updateDetails.query.newFilesToIgnore
-		   },	
+			{ 
+				"pathToConfig":updateDetails.query.newPathToConfig,
+				"reallyWrite": updateDetails.query.newReallyWrite,
+				"bucketName": updateDetails.query.newBucketName,
+				"folderToWalk": updateDetails.query.newFolderToWalk,
+				"s3RootFolder":updateDetails.query.newS3RootFolder,
+				"createFolderToWalkOnS3": updateDetails.query.newCreateFolderToWalkOnS3,
+				"createIndex": updateDetails.query.newCreateIndex,
+				"filesToIgnore": updateDetails.query.newFilesToIgnore
+			},	
 			function(err, data) {
 				if (err) {
 					throw err;
@@ -351,7 +356,7 @@ var QueryMongo = (function() {'use strict';
 			console.log("Item updated");
 			response.send({result:'Success'});  // Send a result of success for now.	
 		}); 
-	      
+
 	}; // End updateCTACollection		
 
 

@@ -9,13 +9,12 @@ var walkDirs = require("./Source/WalkDirs").walkDirs;
 var s3Code = require("./Source/S3Code");
 var fs = require("fs");
 var exec = require('child_process').exec;
-// Adding to read from Mongo
 var qm = require('./Source/QueryMongo');
 var queryMongo = qm.QueryMongo;
 
 var app = express();
 
-// all environments
+// All environments.
 app.set('port', process.env.PORT || 30025);
 app.use(express.logger('dev'));
 app.use(express.json());
@@ -27,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'Source')));
 app.use(express.static(path.join(__dirname, 'Images')));
 app.use(express.favicon('Images/favicon16.ico'));
 
-// development only
+// Development only.
 if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
 }
@@ -42,21 +41,15 @@ app.get('/', function(request, response) { 'use strict';
 // Reads the Poems collection and writes the first 5 poems to a directory in the StackEdit folder.
 app.get('/downloadPoems', function(request, response) {'use strict';
 	console.log("In app.js, downloadPoems called");
- 	var targetDir = request.query.targetDir;  // The request object specifies the target directory.
- 	console.log("In app.js, target directory is: " + targetDir);
+	var targetDir = request.query.targetDir;  // The request object specifies the target directory.
+	console.log("In app.js, target directory is: " + targetDir);
 	queryMongo.downloadPoems(response, 'Poems', targetDir);  // Passing in collection name and target directory.
-	//var options = fs.readFileSync("Options.json", 'utf8');
-	//options = JSON.parse(options);
-	//response.send(options);
 });
 
 // Reads from Mongo database instead of the file system.
 app.get('/getOptions', function(request, response) {'use strict';
 	console.log("In app.js, getOptions Express called");
 	queryMongo.getCollection(response, 'CopytoAwsOptions');  // Passing in collection name.
-	//var options = fs.readFileSync("Options.json", 'utf8');
-	//options = JSON.parse(options);
-	//response.send(options);
 });
 
 app.get('/listBuckets', function(request, response) {'use strict';
@@ -77,8 +70,12 @@ app.get('/copyToS3', function(request, response) {'use strict';
 
 var buildAll = function(response, config, index) { 'use strict';
 	console.log("BuildAll was called");
-	// var config = fs.readFileSync("MarkdownTransformConfig.json", 'utf8');	
-	// config = JSON.parse(config);
+	var config = fs.readFileSync("MarkdownTransformConfig.json", 'utf8');	
+	config = JSON.parse(config);
+
+	console.log("Index is: " + index);
+	console.log("Config to build is: " + config[index]);
+		
 	var command = config[index].pathToPython + " MarkdownTransform.py -i " + index;	
 	try {
 		exec(command, function callback(error, stdout, stderr) {
@@ -96,7 +93,15 @@ var buildAll = function(response, config, index) { 'use strict';
 
 app.get('/buildAll', function(request, response) { 'use strict';
 	console.log("buildAll called");	
-	var options = JSON.parse(request.query.options);
+	var options = request.query.options;
+	console.log("Writing options from request.query to JSON file:");
+	console.log(options);
+	fs.writeFileSync("MarkdownTransformConfig.json", options);
+	
+	//options = JSON.parse(request.query.options);
+	//console.log("In buildAll, option from request.query after JSON parse:");
+	//console.log(options[request.query.index]);
+	
 	buildAll(response, options, request.query.index);
 });
 
@@ -118,7 +123,6 @@ app.get('/updatePublishing', function(request, response) { 'use strict';
 app.get('/getBuildConfig', function(request, response) { 'use strict';
 	console.log('In app.js, getBuildConfig called');
 	queryMongo.getCollection(response, 'TransformCopyOptions');  // Passing in collection name.
-	// console.log("Data received: "+ response);
 });
 
 http.createServer(app).listen(app.get('port'), function() {'use strict';
