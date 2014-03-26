@@ -72,9 +72,7 @@ var buildAll = function(response, config, index) { 'use strict';
 	console.log("BuildAll was called");
 	var config = fs.readFileSync("MarkdownTransformConfig.json", 'utf8');	
 	config = JSON.parse(config);
-
 	console.log("Index is: " + index);
-	console.log("Config to build is: " + config[index]);
 		
 	var command = config[index].pathToPython + " MarkdownTransform.py -i " + index;	
 	try {
@@ -96,12 +94,7 @@ app.get('/buildAll', function(request, response) { 'use strict';
 	var options = request.query.options;
 	console.log("Writing options from request.query to JSON file:");
 	console.log(options);
-	fs.writeFileSync("MarkdownTransformConfig.json", options);
-	
-	//options = JSON.parse(request.query.options);
-	//console.log("In buildAll, option from request.query after JSON parse:");
-	//console.log(options[request.query.index]);
-	
+	fs.writeFileSync("MarkdownTransformConfig.json", options);	
 	buildAll(response, options, request.query.index);
 });
 
