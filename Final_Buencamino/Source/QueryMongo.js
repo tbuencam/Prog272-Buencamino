@@ -6,6 +6,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var mongodb = require('mongodb');  // Required for deleting by ID.
 var fs = require('fs');  // Need Express to read from the JSON file.
+var mkdirp = require('mkdirp');
 
 
 var QueryMongo = (function() {'use strict';
@@ -106,13 +107,10 @@ var QueryMongo = (function() {'use strict';
 
 	
 	var writeFiveFiles = function(theArray, baseDir) {
-		// Write a single .md file to the file system, and for now, hardcode the path.
-		// So an issue is that the Sonnets01 folder has to already exist. Otherwise, an error is thrown. How do you create the directory?
-		// Research fs commands.
 		console.log("Base directory is: " + baseDir);
 		var sonnetNum = 1;
 		
-//		var targetDirectory = baseDir + "Sonnets01/";  // Maybe move the "Sonnet" part up here??
+ 		// var targetDirectory = baseDir + "Sonnets01/";  // Maybe move the "Sonnet" part up here??
 		var dirNum = padNumber(sonnetNum, 2, 0); // 2nd param is number of places.
 		var targetDirectory = baseDir + "Sonnets" + dirNum + "/";
 		var extension = ".md";
@@ -121,7 +119,8 @@ var QueryMongo = (function() {'use strict';
 		
 		// Synchronously, write it back to the file system as Sources.md.
 		// fs.mkdir(path, [mode], callback);
-		fs.mkdirSync(targetDirectory);	// Create the directory.
+		// fs.mkdirSync(targetDirectory);	// Create the directory.
+		makeDirectory(targetDirectory);	// Create the directory if it does not already exist.
 
 		for(var i = 1; i < 8; i++, sonnetNum++) {
 			filename = padNumber(sonnetNum, 2, 0);
@@ -133,9 +132,21 @@ var QueryMongo = (function() {'use strict';
 		} // End loop to write out 5 files
         			
 	};  // End writeFiveFiles
+
+	// Helper method to make a directory only if it does not already exist.
+	function makeDirectory(pathName) {
+		mkdirp(pathName, function(err) {
+			if(err){
+				throw(err);
+			}
+			else {
+				console.log("Successfully created folder: "+ pathName);
+			}
+		});	
+	}; // End makeDirectory
 		
 	// Private helper function called by writeFiveFiles to push in leading zeros in folder and file names.
-	// Pass in number, 3, and 0.
+	// Pass in number, 2, and 0. Use 2 because only counting up to 2 places (35 sonnets).
 	var padNumber = function(numberToPad, width, padValue) {
 		padValue = padValue || '0';
 		numberToPad = numberToPad + '';
