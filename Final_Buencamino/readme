@@ -1,0 +1,19 @@
+This project includes the following features:
+1. Transform and copy configurations and copy to AWS configurations are read from Mongo collections.
+2. The configurations can be modified and saved back to the database from the user interface.
+3. By clicking the "Fetch Sonnets" button, the user can download 35 sonnets from a "Poems" collection
+   to the local folder specified. The sonnets will be stored as markdown and will be distributed into
+   5 separate folders with 7 files in each.
+4. Transform and copy translates the markdown to html, adding other elements from a template, and
+   copies the results to a specified staging directory.
+4. Using the applicable configuration, the user can publish the files the set of HTML files to the specified 
+   folder on S3.
+   
+Notes:
+In this version of the project does not include an option to load configurations into the database or add
+configurations. While not difficult to do, my focus was on working out functionality that hadn't been delivered
+in previous projects. This decision was made also because the application will be pointing to my MongoLab collections
+which already have records that can be used or modified via the application as needed.
+The database user credentials are read from the file named "databaseconfig.json" in the "Source" subdirectory of the
+project.
+ 
