@@ -6,7 +6,7 @@ This project includes the following features:
    5 separate folders with 7 files in each.
 4. Transform and copy translates the markdown to html, adding other elements from a template, and
    copies the results to a specified staging directory.
-4. Using the applicable configuration, the user can publish the files the set of HTML files to the specified 
+5. Using the applicable configuration, the user can publish the files the set of HTML files to the specified 
    folder on S3.
    
 Notes:
